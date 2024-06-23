@@ -1,10 +1,16 @@
 <div class="container">
     <div class="form-container">
         <h2>Login</h2>
-        <form action="./index.html">
-            <input type="email" placeholder="Email" name="email" required>
-            <input type="password" placeholder="Password" name="password" required>
-            <button>Login</button>
+        <form #loginForm="ngForm" action="./index.html">
+            <input type="email" [(ngModel)]="loginData.email" placeholder="Email" name="email" email #controlEmail="ngModel" required>
+            @if(controlEmail.touched && controlEmail.errors){
+            <span>the email invalid</span>
+            }
+            <input type="password" [(ngModel)]="loginData.password" placeholder="Password" #controlPassword="ngModel" name="password" minlength="6" required>
+            @if(controlPassword.touched && controlPassword.errors){
+            <span>the password invalid</span>
+            }
+            <button [disabled]="loginForm.invalid" (click)="login()">Login</button>
         </form>
     </div>
 </div>

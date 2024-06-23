@@ -1,12 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
     selector: 'app-signup',
     standalone: true,
-    imports: [],
+    imports: [FormsModule],
     templateUrl: './signup.component.html',
     styleUrl: './signup.component.scss'
 })
 export class SignupComponent {
+    signupData: Partial<signupData> = {}
+    api = inject(AuthService)
 
+    async signup() {
+        if (this.signupData.password !== this.signupData.confirmPassword) return
+        try {
+            await this.api.signup(this.signupData)
+        } catch (e) { }
+    }
+}
+type signupData = {
+    firstName: string
+    lastName: string
+    email: string
+    password: string
+    confirmPassword: string
 }

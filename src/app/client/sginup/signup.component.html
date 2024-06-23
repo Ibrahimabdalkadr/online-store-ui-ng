@@ -1,13 +1,13 @@
 <div class="container">
     <div class="form-container">
         <h2>Signup</h2>
-        <form action="./login.html">
-            <input type="text" placeholder="First Name" name="first_name" required>
-            <input type="text" placeholder="Last Name" name="last_name" required>
-            <input type="email" placeholder="Email" name="email" required>
-            <input type="password" placeholder="Password" name="password" required>
-            <input type="password" placeholder="Confirm Password" name="confirmPassword" required>
-            <button>Signup</button>
+        <form #signupForm="ngForm">
+            <input type="text" [(ngModel)]="signupData.firstName" placeholder="First Name" name="first_name" maxlength="40" required>
+            <input type="text" [(ngModel)]="signupData.lastName" placeholder="Last Name" name="last_name" maxlength="40" required>
+            <input type="email" [(ngModel)]="signupData.email" email placeholder="Email" name="email" required>
+            <input type="password" [(ngModel)]="signupData.password" placeholder="Password" name="password" minlength="6" required>
+            <input type="password" [(ngModel)]="signupData.confirmPassword" placeholder="Confirm Password" name="confirmPassword" ngModel #confirmPassword="ngModel" required>
+            <button [disabled]="signupForm.invalid" (click)="signup()">Signup</button>
         </form>
     </div>
 </div>

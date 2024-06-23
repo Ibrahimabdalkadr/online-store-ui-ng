@@ -90,12 +90,10 @@ export class AuthService {
 
     }
 
-    async login(email: string, password: string, token: any) {
-        const result = await this.httpPOST<any>(`v1/auth/login`, { email, password, device_token: token });
-
+    async login(email: string, password: string) {
+        const result = await this.httpPOST<any>(`login`, { email, password });
         this.token = result.token;
         this.user = result.user;
-        localStorage.setItem('login-data', JSON.stringify({ email, password }));
         localStorage.setItem('access-token', this.token);
         localStorage.setItem('user', JSON.stringify(this.user));
 
@@ -116,8 +114,9 @@ export class AuthService {
 
     async signup(userDetails: any) {
         try {
-            const result: any = await this.httpPOST('v1/auth/register', userDetails);
+            const result: any = await this.httpPOST('register', userDetails);
             this.token = result.token;
+            this.user = result.user
             return result;
         } catch (error) {
             throw error;
