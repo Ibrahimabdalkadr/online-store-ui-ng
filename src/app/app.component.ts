@@ -1,7 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from './client/header/header.component';
+import { FooterComponent } from './client/footer/footer.component';
 
 @Component({
     selector: 'app-root',

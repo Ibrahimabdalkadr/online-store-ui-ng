@@ -1,5 +1,5 @@
 import { CUSTOM_ELEMENTS_SCHEMA, Component, Directive, ElementRef, HostListener, Renderer2 } from '@angular/core';
-import { ShowAccordionDirective } from '../directives/show-accordion.directive';
+import { ShowAccordionDirective } from '../../directives/show-accordion.directive';
 
 @Component({
     selector: 'app-sidebar',

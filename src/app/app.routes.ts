@@ -1,19 +1,31 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './login/login.component';
-import { SignupComponent } from './sginup/signup.component';
+import { HomeComponent } from './client/home/home.component';
+import { LoginComponent } from './client/login/login.component';
+import { SignupComponent } from './client/sginup/signup.component';
+import { MainClientLayoutComponent } from './client/main-client-layout/main-client-layout.component';
+import { AuthClientLayoutComponent } from './client/auth-client-layout/auth-client-layout.component';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
-    // {
-    //     path: '', redirectTo: '', pathMatch: 'full', component: HomeComponent
-    // },
+
     {
-        path: 'home', component: HomeComponent
+        path: 'home',
+        component: MainClientLayoutComponent,
+        children: [
+            { path: '', component: HomeComponent },
+        ],
+        canActivate: [authGuard],
     },
+
     {
-        path: 'login', component: LoginComponent
+        path: '',
+        component: AuthClientLayoutComponent,
+        children: [
+            { path: '', redirectTo: 'login', pathMatch: 'full' },
+            { path: 'login', component: LoginComponent },
+            { path: 'signup', component: SignupComponent },
+        ],
     },
-    {
-        path: 'signup', component: SignupComponent
-    }
+
+    { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];

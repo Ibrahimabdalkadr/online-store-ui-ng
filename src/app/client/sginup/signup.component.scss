@@ -1,4 +1,9 @@
 .container {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+}
+.form-container {
   text-align: center;
   background: white;
   width: 400px;
