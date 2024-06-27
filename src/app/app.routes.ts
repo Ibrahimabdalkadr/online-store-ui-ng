@@ -5,6 +5,7 @@ import { SignupComponent } from './client/sginup/signup.component';
 import { MainClientLayoutComponent } from './client/main-client-layout/main-client-layout.component';
 import { AuthClientLayoutComponent } from './client/auth-client-layout/auth-client-layout.component';
 import { authGuard } from './guards/auth.guard';
+import { AdminLayoutComponent } from './cp/admin-layout/admin-layout.component';
 
 export const routes: Routes = [
 
@@ -26,6 +27,15 @@ export const routes: Routes = [
             { path: 'signup', component: SignupComponent },
         ],
     },
+
+    {
+        path: 'admin',
+        component: AdminLayoutComponent,
+        children: [
+            // { path: '', component: HomeComponent },
+        ],
+    },
+
 
     { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];
