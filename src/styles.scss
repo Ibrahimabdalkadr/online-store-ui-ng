@@ -1313,6 +1313,9 @@ body::-webkit-scrollbar-thumb:hover {
   min-width: 100%;
   padding: 0 5px;
   scroll-snap-align: start;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 1em;
 }
 
 .product-minimal .showcase {
@@ -1333,6 +1336,7 @@ body::-webkit-scrollbar-thumb:hover {
   padding: 15px;
   -webkit-border-radius: var(--border-radius-md);
   border-radius: var(--border-radius-md);
+  height: 100%;
 }
 
 .product-minimal .showcase:not(:last-child) {
@@ -1739,6 +1743,11 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 .product-grid .showcase-category {
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
   color: var(--salmon-pink);
   font-size: var(--fs-9);
   font-weight: var(--weight-500);
@@ -1747,6 +1756,11 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 .product-grid .showcase-title {
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
   color: var(--sonic-silver);
   font-size: var(--fs-8);
   font-weight: var(--weight-300);

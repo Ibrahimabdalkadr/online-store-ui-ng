@@ -1,5 +1,4 @@
 <header>
-
     <div class="header-top">
 
         <div class="container">
@@ -7,13 +6,13 @@
             <ul class="header-social-container">
 
                 <li>
-                    <a href="https://www.facebook.com/profile.php?id=100010281616411&mibextid=ZbWKwL" class="social-link" target="_blank">
+                    <a href="https://www.facebook.com/profile" class="social-link" target="_blank">
                         <ion-icon name="logo-facebook"></ion-icon>
                     </a>
                 </li>
 
                 <li>
-                    <a href="tel:+352681559719" class="social-link" target="_blank">
+                    <a href="tel" class="social-link" target="_blank">
                         <ion-icon name="logo-whatsapp"></ion-icon>
                     </a>
                 </li>
@@ -21,12 +20,6 @@
                 <li>
                     <a href="https://www.instagram.com" class="social-link" target="_blank">
                         <ion-icon name="logo-instagram"></ion-icon>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="https://github.com" class="social-link" target="_blank">
-                        <ion-icon name="logo-github"></ion-icon>
                     </a>
                 </li>
 
@@ -40,13 +33,12 @@
             </div>
 
             <div class="header-top-actions">
-                <a routerLink="signup" class="banner-btn">Sign Up</a>
-                <a routerLink="login" class="banner-btn">Login</a>
-                <select name="currency">
+                <button class="banner-btn" routerLink="/signup">Sign Up</button>
+                <button class="banner-btn" routerLink="/login">Login</button>
 
-                    <option value="usd">USD &dollar;</option>
-                    <option value="eur">EUR &euro;</option>
-
+                <select name="currency" (change)="fetchExchangeRate()" [(ngModel)]="currency" name="currency">
+                    <option value="USD">USD &dollar;</option>
+                    <option value="EUR">EUR &euro;</option>
                 </select>
 
                 <select name="language">
@@ -353,13 +345,11 @@
                     </ul>
                 </li>
 
-                <li class="menu-category">
-                    <a href="#" class="menu-title">Blog</a>
-                </li>
 
                 <li class="menu-category">
-                    <a href="#" class="menu-title">Hot Offers</a>
+                    <a href="#" class="menu-title">Our Services</a>
                 </li>
+
 
             </ul>
 

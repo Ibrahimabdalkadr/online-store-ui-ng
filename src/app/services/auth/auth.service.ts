@@ -162,10 +162,11 @@ export class AuthService {
         }
     }
 
-    async httpGET<R>(path: string, headers?: Record<string, string>, includeAuthHeader = true): Promise<R> {
+    async httpGET<R>(path: string, query?: Record<string, any>, headers?: Record<string, string>, includeAuthHeader = true): Promise<R> {
         try {
             headers = includeAuthHeader ? { ...headers, authorization: `Bearer ${this.token}` } : {};
-            const response = await httpGET<ApiResponse<R>>(`${environment.api}/${path}`, headers);
+            const queryAsString = this.buildQueryString(query);
+            const response = await httpGET<ApiResponse<R>>(`${environment.api}/${path}${queryAsString}`, headers);
             if (response.error) throw { code: 400, error: response.message, data: response.data };
             return response.data;
         } catch (error) {
@@ -174,14 +175,15 @@ export class AuthService {
             else throw error;
         }
     }
-    // async thenOrShowToast<T>(path: string): Promise<T | undefined> {
-    //     try {
-    //         const result = await this.httpGET<T>(path);
-    //         return result;
-    //     } catch (e: any) {
-    //         const msg = (e && typeof e == 'object' && 'error' in e ? e['error'] : '') as string;
-    //         await showToast(msg ? msg : 'no content');
-    //         return undefined;
-    //     }
-    // }
+
+    private buildQueryString(query?: Record<string, any>): string {
+        const params = new URLSearchParams();
+        for (const key in query) {
+            const value = query[key];
+            if (value !== undefined && Array.isArray(value)) value.forEach(val => params.append(key, val));
+            if (value !== undefined && !Array.isArray(value)) params.append(key, value);
+        }
+        return params.toString() ? `?${params.toString()}` : '';
+    }
+
 }
