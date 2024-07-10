@@ -11,7 +11,7 @@ import { Component, ElementRef, Input, TemplateRef, ViewChild } from '@angular/c
 export class ModalComponent {
     @ViewChild('dialog') dialog!: ElementRef<HTMLDialogElement>;
     @Input() template: TemplateRef<any> | any;
-
+    @Input() productId?: number;
     open() {
         this.dialog.nativeElement.showModal();
     }

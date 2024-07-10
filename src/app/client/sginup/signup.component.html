@@ -2,8 +2,8 @@
     <div class="form-container">
         <h2>Signup</h2>
         <form #signupForm="ngForm">
-            <input type="text" [(ngModel)]="signupData.firstName" placeholder="First Name" name="first_name" maxlength="40" required>
-            <input type="text" [(ngModel)]="signupData.lastName" placeholder="Last Name" name="last_name" maxlength="40" required>
+            <input type="text" [(ngModel)]="signupData.first_name" placeholder="First Name" name="first_name" maxlength="40" required>
+            <input type="text" [(ngModel)]="signupData.last_name" placeholder="Last Name" name="last_name" maxlength="40" required>
             <input type="email" [(ngModel)]="signupData.email" email placeholder="Email" name="email" required>
             <input type="password" [(ngModel)]="signupData.password" placeholder="Password" name="password" minlength="6" required>
             <input type="password" [(ngModel)]="signupData.confirmPassword" placeholder="Confirm Password" name="confirmPassword" ngModel #confirmPassword="ngModel" required>

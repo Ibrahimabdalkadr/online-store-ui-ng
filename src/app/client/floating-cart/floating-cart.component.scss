@@ -1,0 +1,17 @@
+.floating-cart {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: calc(fit-content + 1em);
+  height: fit-content;
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  cursor: move;
+  z-index: 10;
+}
+.cart-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

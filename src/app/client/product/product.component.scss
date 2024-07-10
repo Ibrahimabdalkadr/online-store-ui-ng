@@ -1,0 +1,13 @@
+@media (min-width: 1000px) {
+  .product-featured {
+    height: 600px;
+    width: 1096px;
+  }
+}
+.product-featured .showcase-desc {
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}

@@ -1,13 +1,13 @@
-import { CUSTOM_ELEMENTS_SCHEMA, Component, OnChanges, OnInit, SimpleChanges, ViewChild, inject } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, Component, HostListener, OnChanges, OnInit, SimpleChanges, ViewChild, inject } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
-import { DecimalPipe, NgFor } from '@angular/common';
+import { DecimalPipe } from '@angular/common';
 import { ExchangeRateService } from '../../services/exchange/exchange-rate.service';
 import { ModalComponent } from '../../modal/modal.component';
-
+import { FloatingCartComponent } from '../floating-cart/floating-cart.component';
 @Component({
     selector: 'app-product',
     standalone: true,
-    imports: [DecimalPipe, ModalComponent],
+    imports: [DecimalPipe, ModalComponent, FloatingCartComponent],
     templateUrl: './product.component.html',
     styleUrl: './product.component.scss',
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
@@ -56,9 +56,19 @@ export class ProductComponent implements OnInit {
 
     currentProduct?: Product
     showProduct(product: Product) {
-        this.currentProduct = product
         this.dialog?.open();
+        this.currentProduct = product
     }
+
+    cartItems: any = []
+    addToCart(product?: Product) {
+        console.log(this.cartItems)
+        this.cartItems.push({ ...product })
+    }
+    addToFavorite() { }
+    repeatProduct() { }
+
+
 }
 type Product = {
     id: number

@@ -30,8 +30,8 @@
                                 <a href="#" class="showcase-category">{{product.category.name}}</a>
 
                                 <div class="price-box">
-                                    <p class="price">{{symbol}}{{product.price * exchangeRate | number:'.1-3'}}</p>
-                                    <del>{{symbol}}{{product.new_price * exchangeRate | number:'.3-3'}}</del>
+                                    <p class="price">{{symbol}}{{product.price * exchangeRate | number:'.0-3'}}</p>
+                                    <del>{{symbol}}{{product.new_price * exchangeRate | number:'.0-3'}}</del>
                                 </div>
 
                             </div>
@@ -61,7 +61,8 @@
 
         <div class="showcase-wrapper has-scrollbar">
 
-            <!-- @for(prod of featured;track prod){
+            @for(product of featured;track $index){
+
             <div class="showcase-container">
 
                 <div class="showcase">
@@ -73,26 +74,24 @@
                     <div class="showcase-content">
 
                         <div class="showcase-rating">
+                            @for(s of [].constructor(product.rate);track $index){
                             <ion-icon name="star"></ion-icon>
-                            <ion-icon name="star"></ion-icon>
-                            <ion-icon name="star"></ion-icon>
+                            }
+                            @for(s of [].constructor(NUMBER_OF_RATING_STARS - product.rate);track $index){
                             <ion-icon name="star-outline"></ion-icon>
-                            <ion-icon name="star-outline"></ion-icon>
+                            }
                         </div>
 
                         <a href="#">
-                            <h3 class="showcase-title">shampoo, conditioner & facewash packs</h3>
+                            <h3 class="showcase-title">{{product.name}}</h3>
                         </a>
 
-                        <p class="showcase-desc">
-                            Lorem ipsum dolor sit amet consectetur Lorem ipsum
-                            dolor dolor sit amet consectetur Lorem ipsum dolor
-                        </p>
+                        <p class="showcase-desc">{{product.description}}</p>
 
                         <div class="price-box">
-                            <p class="price">$150.00</p>
+                            <p class="price">{{symbol}}{{product.price}}</p>
 
-                            <del>$200.00</del>
+                            <del>{{symbol}}{{product.new_price}}</del>
                         </div>
 
                         <button class="add-cart-btn">add to cart</button>
@@ -100,11 +99,11 @@
                         <div class="showcase-status">
                             <div class="wrapper">
                                 <p>
-                                    already sold: <b>20</b>
+                                    already sold: <b>product - 1</b>
                                 </p>
 
                                 <p>
-                                    available: <b>40</b>
+                                    available: <b>{{product.quantity}}</b>
                                 </p>
                             </div>
 
@@ -151,12 +150,11 @@
                 </div>
 
             </div>
-            } -->
+            }
 
         </div>
 
     </div>
-
 
 
     <!--
@@ -193,7 +191,7 @@
                             <ion-icon name="repeat-outline"></ion-icon>
                         </button>
 
-                        <button class="btn-action">
+                        <button class="btn-action" (click)="addToCart(product)">
                             <ion-icon name="bag-add-outline"></ion-icon>
                         </button>
                     </div>
@@ -216,8 +214,8 @@
                     </div>
 
                     <div class="price-box">
-                        <p class="price">{{symbol}}{{product.price * exchangeRate | number:'.3-3'}}</p>
-                        <del>{{symbol}}{{product.new_price * exchangeRate | number:'.3-3'}}</del>
+                        <p class="price">{{symbol}}{{product.price * exchangeRate | number:'.0-3'}}</p>
+                        <del>{{symbol}}{{product.new_price * exchangeRate | number:'.0-3'}}</del>
                     </div>
 
                 </div>
@@ -229,17 +227,17 @@
     </div>
 
 </div>
-<app-modal [template]="lion">
+<app-modal [productId]="currentProduct?.id" [template]="lion">
 
 </app-modal>
 
 <ng-template #lion>
     <div class="">
-        <button class="btn-action">
+        <button class="btn-action" (click)="addToFavorite()">
             <ion-icon name="heart-outline"></ion-icon>
         </button>
 
-        <button class="btn-action">
+        <button class="btn-action" (click)="repeatProduct()">
             <ion-icon name="repeat-outline"></ion-icon>
         </button>
 
@@ -277,3 +275,5 @@
     </div>
 
 </ng-template>
+
+<app-floating-cart [cartItems]="cartItems"></app-floating-cart>

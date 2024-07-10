@@ -1,13 +1,41 @@
-// them
-@import "../node_modules/tailwindcss/base.css";
-@import "../node_modules/tailwindcss/components.css";
-@import "../node_modules/tailwindcss/utilities";
-@import "../src/assets/css/main.css";
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use "@angular/material" as mat;
+// Plus imports for other components in your app.
 
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the theme object.
+$online-store-ui-theme: mat.define-theme(
+  (
+    color: (
+      theme-type: light,
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette,
+    ),
+    density: (
+      scale: 0,
+    ),
+  )
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
 :root {
-  /**
-     * colors*/
+  @include mat.all-component-themes($online-store-ui-theme);
+}
 
+// Comment out the line below if you want to use the pre-defined typography utility classes.
+// For more information: https://material.angular.io/guide/typography#using-typography-styles-in-your-application.
+// @include mat.typography-hierarchy($online-store-ui-theme);
+
+// Comment out the line below if you want to use the deprecated `color` inputs.
+// @include mat.color-variants-backwards-compatibility($online-store-ui-theme);
+:root {
   --spanish-gray: hsl(0, 0%, 60%);
   --sonic-silver: hsl(0, 0%, 47%);
   --eerie-black: hsl(0, 0%, 13%);
@@ -37,24 +65,10 @@
   --weight-500: 500;
   --weight-600: 600;
   --weight-700: 700;
-
-  /**
-     * border-radius
-     */
-
   --border-radius-md: 10px;
   --border-radius-sm: 5px;
-
-  /**
-     * transition
-     */
-
   --transition-timing: 0.2s ease;
 }
-
-/*-----------------------------------*\
-    #RESET
-  \*-----------------------------------*/
 
 *,
 *::before,
@@ -150,10 +164,6 @@ body::-webkit-scrollbar-thumb {
 body::-webkit-scrollbar-thumb:hover {
   background: hsl(0, 0%, 70%);
 }
-
-/*-----------------------------------*\
-    #REUSED STYLE
-  \*-----------------------------------*/
 
 .container {
   padding: 0 15px;
@@ -1605,8 +1615,10 @@ body::-webkit-scrollbar-thumb:hover {
 .product-grid {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 1fr;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+
+  //   -ms-grid-columns: 1fr;
+  //   grid-template-columns: 1fr;
   gap: 25px;
 }
 
@@ -2368,8 +2380,8 @@ footer {
      */
 
   .product-grid {
-    -ms-grid-columns: 1fr 30px 1fr;
-    grid-template-columns: 1fr 1fr;
+    // -ms-grid-columns: 1fr 30px 1fr;
+    // grid-template-columns: 1fr 1fr;
     gap: 30px;
   }
 
@@ -3154,10 +3166,10 @@ footer {
     padding: 5px 10px;
   }
 
-  .product-grid {
-    -ms-grid-columns: (1fr) [3];
-    grid-template-columns: repeat(3, 1fr);
-  }
+  //   .product-grid {
+  //     -ms-grid-columns: (1fr) [3];
+  //     grid-template-columns: repeat(3, 1fr);
+  //   }
 
   /**
      * #TESTIMONIALS, CTA & SERVICE
@@ -3298,10 +3310,10 @@ footer {
     --fs-5: 1.125rem;
   }
 
-  .product-grid {
-    -ms-grid-columns: (1fr) [4];
-    grid-template-columns: repeat(4, 1fr);
-  }
+  //   .product-grid {
+  //     -ms-grid-columns: (1fr) [4];
+  //     grid-template-columns: repeat(4, 1fr);
+  //   }
 
   /**
      * #TESTIMONIALS, CTA, SERVICE
@@ -3405,4 +3417,18 @@ footer {
     left: 110px;
     max-width: 460px;
   }
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+// mat
+.mat-mdc-list-item-unscoped-content {
+  width: 100%;
 }
