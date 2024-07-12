@@ -23,7 +23,7 @@
 
                             <div class="showcase-content">
 
-                                <a href="#">
+                                <a>
                                     <h4 class="showcase-title">{{product.name}}</h4>
                                 </a>
 
@@ -82,7 +82,7 @@
                             }
                         </div>
 
-                        <a href="#">
+                        <a>
                             <h3 class="showcase-title">{{product.name}}</h3>
                         </a>
 
@@ -187,10 +187,6 @@
                             <ion-icon name="eye-outline"></ion-icon>
                         </button>
 
-                        <button class="btn-action">
-                            <ion-icon name="repeat-outline"></ion-icon>
-                        </button>
-
                         <button class="btn-action" (click)="addToCart(product)">
                             <ion-icon name="bag-add-outline"></ion-icon>
                         </button>
@@ -198,10 +194,10 @@
                 </div>
 
                 <div class="showcase-content">
-                    <a href="#" class="showcase-category">{{product.name}}</a>
+                    <a class="showcase-category">{{product.name}}</a>
 
                     <h3>
-                        <a href="#" class="showcase-title">{{product.description}}</a>
+                        <a class="showcase-title">{{product.description}}</a>
                     </h3>
 
                     <div class="showcase-rating">
@@ -227,18 +223,16 @@
     </div>
 
 </div>
-<app-modal [productId]="currentProduct?.id" [template]="lion">
+
+<!-- popup -->
+<app-modal [productId]="currentProduct?.id" [template]="productInfo">
 
 </app-modal>
 
-<ng-template #lion>
+<ng-template #productInfo>
     <div class="">
         <button class="btn-action" (click)="addToFavorite()">
             <ion-icon name="heart-outline"></ion-icon>
-        </button>
-
-        <button class="btn-action" (click)="repeatProduct()">
-            <ion-icon name="repeat-outline"></ion-icon>
         </button>
 
         <button class="btn-action">
@@ -276,4 +270,24 @@
 
 </ng-template>
 
-<app-floating-cart [cartItems]="cartItems"></app-floating-cart>
+<!-- cart -->
+
+@if(cartItems.length > 0){
+<app-floating-cart [cartItems]="cartItems" [template]="cart">
+</app-floating-cart>
+}
+<ng-template #cart>
+    <mat-list class="cart-item-container">
+        @for( item of cartItems;track $index){
+        <mat-list-item>
+            <div class="cart-item">
+                <div>{{ item.name.split(' ')[0] }} - {{ item.new_price }}$ </div>
+                <div class="cursor-pointer" (click)="removeFromCart(item.id)"> <ion-icon name="trash"></ion-icon> </div>
+            </div>
+        </mat-list-item>
+        }
+    </mat-list>
+    <mat-list-item class="button-container">
+        <button (click)="saveCart()">save</button>
+    </mat-list-item>
+</ng-template>

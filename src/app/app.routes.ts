@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './client/home/home.component';
 import { LoginComponent } from './client/login/login.component';
-import { SignupComponent } from './client/sginup/signup.component';
+import { SignupComponent } from './client/signup/signup.component';
 import { MainClientLayoutComponent } from './client/main-client-layout/main-client-layout.component';
 import { AuthClientLayoutComponent } from './client/auth-client-layout/auth-client-layout.component';
 import { authGuard } from './guards/auth.guard';
@@ -11,14 +11,22 @@ import { CustomerComponent } from './cp/customer/customer.component';
 import { MerchantComponent } from './cp/merchant/merchant.component';
 import { ProductComponent } from './cp/product/product.component';
 import { CategoryComponent } from './cp/category/category.component';
+import { OrdersComponent } from './client/orders/orders.component';
+import { ProfileComponent } from './client/profile/profile.component';
+import { FavoriteComponent } from './client/favorite/favorite.component';
+import { ErrorComponent } from './client/error/error.component';
 
 export const routes: Routes = [
 
     {
-        path: 'home',
+        path: '',
         component: MainClientLayoutComponent,
         children: [
-            { path: '', component: HomeComponent },
+            { path: '', redirectTo: 'home', pathMatch: 'full' },
+            { path: 'home', component: HomeComponent },
+            { path: 'order', component: OrdersComponent },
+            { path: 'profile', component: ProfileComponent },
+            { path: 'favorite', component: FavoriteComponent },
         ],
         canActivate: [authGuard],
     },
@@ -47,5 +55,5 @@ export const routes: Routes = [
     },
 
 
-    { path: '**', redirectTo: 'login', pathMatch: 'full' }
+    { path: '**', pathMatch: 'full', component: ErrorComponent }
 ];

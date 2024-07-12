@@ -3427,7 +3427,9 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
-
+.cursor-pointer {
+  cursor: pointer;
+}
 // mat
 .mat-mdc-list-item-unscoped-content {
   width: 100%;

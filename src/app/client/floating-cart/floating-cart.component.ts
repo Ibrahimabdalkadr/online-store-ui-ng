@@ -1,23 +1,18 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, HostListener, Input } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, HostListener, Input, TemplateRef } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 
 @Component({
     selector: 'app-floating-cart',
     standalone: true,
-    imports: [MatCardModule, MatListModule],
+    imports: [MatCardModule, MatListModule, NgTemplateOutlet],
     templateUrl: './floating-cart.component.html',
     styleUrl: './floating-cart.component.scss',
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class FloatingCartComponent {
-    @Input() cartItems: any[] = [];
-
-
-    removeItem(id: number) {
-        const index = this.cartItems.find((item) => { item.id = id })
-        this.cartItems.splice(index, 1);
-    }
+    @Input() template: TemplateRef<any> | any;
 
 
     private dragging = false;
@@ -30,11 +25,9 @@ export class FloatingCartComponent {
         this.dragging = true;
         this.dragStartX = event.clientX;
         this.dragStartY = event.clientY;
-
         const element = (event.target as HTMLElement).closest('.floating-cart') as HTMLElement;
         this.elementStartX = element.offsetLeft;
         this.elementStartY = element.offsetTop;
-
         event.preventDefault();
     }
 

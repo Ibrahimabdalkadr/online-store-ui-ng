@@ -11,3 +11,16 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
 }
+.cart-item-container {
+  height: 100px;
+  display: -webkit-box;
+  overflow-y: scroll;
+}
+.cart-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.button-container {
+  text-align: center;
+}

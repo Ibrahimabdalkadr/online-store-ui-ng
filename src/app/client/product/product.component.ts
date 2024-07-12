@@ -4,6 +4,7 @@ import { DecimalPipe } from '@angular/common';
 import { ExchangeRateService } from '../../services/exchange/exchange-rate.service';
 import { ModalComponent } from '../../modal/modal.component';
 import { FloatingCartComponent } from '../floating-cart/floating-cart.component';
+import { Router } from '@angular/router';
 @Component({
     selector: 'app-product',
     standalone: true,
@@ -16,7 +17,7 @@ export class ProductComponent implements OnInit {
     @ViewChild(ModalComponent) dialog?: ModalComponent;
     exchangeRateService = inject(ExchangeRateService)
     api = inject(AuthService)
-
+    router = inject(Router)
 
     exchangeRate = 1;
     symbol = ''
@@ -56,19 +57,30 @@ export class ProductComponent implements OnInit {
 
     currentProduct?: Product
     showProduct(product: Product) {
-        this.dialog?.open();
         this.currentProduct = product
+        this.dialog?.open();
     }
 
     cartItems: any = []
     addToCart(product?: Product) {
-        console.log(this.cartItems)
         this.cartItems.push({ ...product })
     }
+
+    removeFromCart(id: number) {
+        const index = this.cartItems.find((item: any) => { item.id = id })
+        this.cartItems.splice(index, 1);
+    }
+
+
+    async saveCart() {
+        const products_id = this.cartItems.map((item: Product) => item.id)
+        try {
+            this.api.httpPOST('order', { products_id: products_id })
+            this.router.navigateByUrl('order')
+        } catch (e) { }
+    }
+
     addToFavorite() { }
-    repeatProduct() { }
-
-
 }
 type Product = {
     id: number
