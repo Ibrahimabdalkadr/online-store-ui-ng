@@ -1,22 +1,28 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, model, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
 import { MatTableModule } from '@angular/material/table';
 import { DatePipe } from '@angular/common';
-import { MatPaginator } from '@angular/material/paginator';
-
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
+import { ModalComponent } from '../../modal/modal.component';
 @Component({
     selector: 'app-orders',
     standalone: true,
-    imports: [MatTableModule, DatePipe],
+    imports: [MatTableModule, DatePipe, MatButtonModule, MatMenuModule, ModalComponent],
     templateUrl: './orders.component.html',
     styleUrl: './orders.component.scss',
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class OrdersComponent implements OnInit {
-    displayedColumns = ['id', 'status', 'total_price', 'created_at', 'actions'];
-    dataSource: any = [];
+    @ViewChild(ModalComponent) dialog?: ModalComponent;
     api = inject(AuthService)
-    orderItems = []
+
+    OrderDisplayedColumns = ['id', 'status', 'total_price', 'created_at', 'actions'];
+    showOrdersDataSource: any = [];
+
+    showProductDataSource: any = [];
+    productDisplayedColumns = ['image', 'name', 'price', 'quantity', 'actions'];
+
 
     ngOnInit(): void {
         this.fetchOrders()
@@ -25,21 +31,32 @@ export class OrdersComponent implements OnInit {
     async fetchOrders() {
         try {
             const result = await this.api.httpGET<[]>('order')
-            // this.orderItems = result
-            this.dataSource = result
+            this.showOrdersDataSource = result
         } catch (e) { }
     }
 
     editOrder(order: any) {
-        // Implement edit action here, e.g., open a dialog for editing
-        console.log('Edit Order:', order);
+        this.dialog?.open();
+        this.showProductDataSource = order.products
     }
 
-    deleteOrder(order: any) {
-        console.log('Delete Order:', order);
+    async deleteOrder(order: any) {
+        try {
+            await this.api.httpDELETE(`order/${order.id}`)
+        } catch (e) { }
     }
+
+    async deleteProductFromOrder(product: any) {
+        try {
+            const orderId = this.showProductDataSource.id
+            await this.api.httpDELETE(`order/${orderId}/${product.id}`)
+        } catch (e) { }
+    }
+
+    paymentOrder(order: any) { }
 
 }
+
 type Order = {
     id: number
     status: number
